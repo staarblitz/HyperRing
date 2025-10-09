@@ -7,16 +7,16 @@ HyperRing is a hypervisor designed to monitor the kernel and user-mode programs,
 
 ## Technical Details
 ### Features
-1. Exposes kernel-mode API to user-mode.
+#### 1. Exposes kernel-mode API to user-mode.
 HyperRing allows user-mode applications (so called _HyperPlugins_) to use kernel-mode and hypervisor-specific APIs. Some examples are:
 - Allocating physical memory
 - Mapping physical memory
 - Benefitting from opaque kernel structures (like `EPROCESS` and `ETHREAD`)
 - Real-time notifications (like exceptions, interrupts and so on)
 - And many more!
-2. Easy interfacing
+#### 2. Easy interfacing
 HyperRing is interfaced through `VMCALL`s to make it easier for software to utilize HyperRing SDK.
-3. Security
+#### 3. Security
 Yeah, the term "security" and "expose" doesn't come together so easily. That is why HyperRing is built with a plugin-like system with authorization.
 Each _HyperPlugin_ that wants to do specific thing (like allocating memory, terminating a process) must authenticate itself with those access masks, then issue a `VMCALL`. The end-user receives an UAC like prompt to choose whether or not to allow this application. If user trusts the plugin, he may choose to "always allow". Which plugins are kept by their file signatures and file names.
 
