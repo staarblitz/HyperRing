@@ -39,4 +39,4 @@ HyperRing is Work in Progress (WIP) and currently the hypervisor module is being
 You might want to donate, or contact me and provide support at Telegram to resolve issues around HyperRing.
 
 ## Known Issues
-1. `iretq` at `KiInterruptDispatchNoLockNoEtw` throws a `#GP`. The stack is garbaged.
+1. `iretq` at `KiInterruptDispatchNoLockNoEtw` throws a `#GP`. The stack is garbaged. Thus, the system crashes before a complete virtualization.
