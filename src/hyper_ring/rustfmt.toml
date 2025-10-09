@@ -1,0 +1,5 @@
+unstable_features = true
+imports_layout="Vertical"
+merge_derives=true
+merge_imports=true
+reorder_imports=true
