@@ -1,5 +1,5 @@
 > [!WARNING]
-> HyperRing is WIP and is extremely unstable. There is no API, neither a SDK developers use. The source coded is published solely for inspection purposes.
+> HyperRing is WIP and is extremely unstable. There is no API, neither a SDK developers use. The source code is published solely for inspection purposes.
 
 
 # HyperRing - Expose your kernel like you mean it.
