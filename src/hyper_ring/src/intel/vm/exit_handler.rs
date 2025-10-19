@@ -272,32 +272,32 @@ pub extern "sysv64" fn vm_exit_handler() {
     // We add 4096 to RSP before tha call because stack grows downwards.
     // Our allocation points on top (in normal terms, beginning) of the stack.
     // So we have to adjust accordingly.
-    naked_asm!(
+      naked_asm!(
         "
-        mov rbp, rsp
-    mov rsp, [rbp]
-    mov [rsp], rcx
-    mov [rsp + 8], rcx
-    mov [rsp + 16], rdx
-    mov [rsp + 24], rbx
-    mov [rsp + 32], rbp
-    mov [rsp + 40], rsi
-    mov [rsp + 48], rdi
-    mov [rsp + 56], r8
-    mov [rsp + 64], r9
-    mov [rsp + 72], r10
-    mov [rsp + 80], r11
-    mov [rsp + 88], r12
-    mov [rsp + 96], r13
-    mov [rsp + 104], r14
-    mov [rsp + 112], r15
+    xchg r15, rsp
+    add r15, 8
+    mov [r15], rax
+    mov [r15 + 8], rcx
+    mov [r15 + 16], rdx
+    mov [r15 + 24], rbx
+    mov [r15 + 32], rbp
+    mov [r15 + 40], rsi
+    mov [r15 + 48], rdi
+    mov [r15 + 56], r8
+    mov [r15 + 64], r9
+    mov [r15 + 72], r10
+    mov [r15 + 80], r11
+    mov [r15 + 88], r12
+    mov [r15 + 96], r13
+    mov [r15 + 104], r14
+    mov [r15 + 112], rsp
 
-    mov rsp, [rbp + 8]
+    mov rsp, [r15 - 8]
     add rsp, 4096
-    mov rcx, [rbp]
+    mov rcx, r15
     call vm_exit_prepare
 
-    mov rsp, [rbp]
+    mov rsp, r15
     mov rax, [rsp]
     mov rcx, [rsp + 8]
     mov rdx, [rsp + 16]
