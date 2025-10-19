@@ -264,6 +264,7 @@ pub fn vm_exit_prepare(guest_regs: &mut GuestRegisters) {
 #[unsafe(naked)]
 #[unsafe(no_mangle)]
 pub extern "sysv64" fn vm_exit_handler() {
+	// RSP is the pointer to VmmStack object.
     // [RSP] is pointer to the actual stack.
     // [RSP + 8] is the GuestRegisters structure (not pointer!).
 	// R15 is set to original RSP.
