@@ -13,10 +13,10 @@ use wdk_sys::{
 #[derive(Default)]
 /// Abstracts the stack used by vm_exit_handler.
 pub struct VmmStack {
-    // Pointer to GuestRegisters.
-    pub guest_registers_ptr: u64,
     // Pointer to actual stack.
     pub stack_ptr: u64,
+    // Guest registers.
+    pub guest_registers: GuestRegisters,
 }
 
 impl VmmStack {
@@ -24,12 +24,8 @@ impl VmmStack {
     pub fn new() -> VmmStack {
         unsafe {
             Self {
-                guest_registers_ptr: ExAllocatePool2(
-                    POOL_FLAG_NON_PAGED,
-                    size_of::<GuestRegisters>() as SIZE_T,
-                    0x2009,
-                ) as u64,
                 stack_ptr: ExAllocatePool2(POOL_FLAG_NON_PAGED, 8192, 0x2009) as u64,
+                guest_registers: Default::default(),
             }
         }
     }
@@ -43,7 +39,6 @@ impl VmmStack {
     pub fn free(&mut self) {
         unsafe {
             ExFreePool(self.stack_ptr as PVOID);
-            ExFreePool(self.guest_registers_ptr as PVOID);
         }
     }
 }
