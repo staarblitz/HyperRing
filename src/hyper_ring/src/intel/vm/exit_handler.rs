@@ -264,10 +264,10 @@ pub fn vm_exit_prepare(guest_regs: &mut GuestRegisters) {
 #[unsafe(naked)]
 #[unsafe(no_mangle)]
 pub extern "sysv64" fn vm_exit_handler() {
-    // RSP holds pointer to the VmmStack object.
-    // [RSP] is pointer to the GuestRegisters.
-    // [RSP + 8] is pointer to the real stack to use.
-    // RBP is set to original RSP.
+    // [RSP] is pointer to the actual stack.
+    // [RSP + 8] is the GuestRegisters structure (not pointer!).
+	// R15 is set to original RSP.
+	// RSP is exchanged with original R15.
 
     // We add 4096 to RSP before tha call because stack grows downwards.
     // Our allocation points on top (in normal terms, beginning) of the stack.
